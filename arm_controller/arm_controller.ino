@@ -27,8 +27,7 @@ void setup() {
   servo02.attach(6);
   servo03.attach(7);
   servo04.attach(8);
-  servo05.attach(9);
-  servo06.attach(10);
+ 
   Bluetooth.begin(38400); // Default baud rate of the Bluetooth module
   Bluetooth.setTimeout(1);
   delay(20);
@@ -41,10 +40,7 @@ void setup() {
   servo03.write(servo3PPos);
   servo4PPos = 140;
   servo04.write(servo4PPos);
-  servo5PPos = 85;
-  servo05.write(servo5PPos);
-  servo6PPos = 80;
-  servo06.write(servo6PPos);
+
 }
 
 void loop() {
@@ -129,42 +125,8 @@ void loop() {
       }
       servo4PPos = servo4Pos;
     }
-    // Move Servo 5
-    if (dataIn.startsWith("s5")) {
-      String dataInS = dataIn.substring(2, dataIn.length());
-      servo5Pos = dataInS.toInt();
-      if (servo5PPos > servo5Pos) {
-        for ( int j = servo5PPos; j >= servo5Pos; j--) {
-          servo05.write(j);
-          delay(30);
-        }
-      }
-      if (servo5PPos < servo5Pos) {
-        for ( int j = servo5PPos; j <= servo5Pos; j++) {
-          servo05.write(j);
-          delay(30);
-        }
-      }
-      servo5PPos = servo5Pos;
-    }
-    // Move Servo 6
-    if (dataIn.startsWith("s6")) {
-      String dataInS = dataIn.substring(2, dataIn.length());
-      servo6Pos = dataInS.toInt();
-      if (servo6PPos > servo6Pos) {
-        for ( int j = servo6PPos; j >= servo6Pos; j--) {
-          servo06.write(j);
-          delay(30);
-        }
-      }
-      if (servo6PPos < servo6Pos) {
-        for ( int j = servo6PPos; j <= servo6Pos; j++) {
-          servo06.write(j);
-          delay(30);
-        }
-      }
-      servo6PPos = servo6Pos; 
-    }
+   
+      
     // If button "SAVE" is pressed
     if (dataIn.startsWith("SAVE")) {
       servo01SP[index] = servo1PPos;  // save position into the array
@@ -278,37 +240,7 @@ void runservo() {
         }
       }
 
-      // Servo 5
-      if (servo05SP[i] == servo05SP[i + 1]) {
-      }
-      if (servo05SP[i] > servo05SP[i + 1]) {
-        for ( int j = servo05SP[i]; j >= servo05SP[i + 1]; j--) {
-          servo05.write(j);
-          delay(speedDelay);
-        }
-      }
-      if (servo05SP[i] < servo05SP[i + 1]) {
-        for ( int j = servo05SP[i]; j <= servo05SP[i + 1]; j++) {
-          servo05.write(j);
-          delay(speedDelay);
-        }
-      }
-
-      // Servo 6
-      if (servo06SP[i] == servo06SP[i + 1]) {
-      }
-      if (servo06SP[i] > servo06SP[i + 1]) {
-        for ( int j = servo06SP[i]; j >= servo06SP[i + 1]; j--) {
-          servo06.write(j);
-          delay(speedDelay);
-        }
-      }
-      if (servo06SP[i] < servo06SP[i + 1]) {
-        for ( int j = servo06SP[i]; j <= servo06SP[i + 1]; j++) {
-          servo06.write(j);
-          delay(speedDelay);
-        }
-      }
+   
     }
   }
 }
